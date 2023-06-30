@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const DB = process.env.DB_CONNECTION_STRING.replace(
-  "password",
+  "<password>",
   process.env.DB_PASSWORD
 );
 
-const connectDB = async () => {
+export const connectDB = async () => {
   try {
     const connect = await mongoose.connect(DB);
     console.log(
@@ -16,5 +19,3 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
-
-export * from "./dbConnect";
