@@ -1,7 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
+
+import connectDB from "./config/dbConnect.js";
 
 dotenv.config();
+
+connectDB();
 const app = express();
 
 app.use("/", (req, res, next) => {
