@@ -1,12 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
-
-import * as connectDB from "./config/dbConnect.js";
+import { connectDB } from "./config/dbConnect.js";
+import * as userRouter from "./routes/userRoute";
 
 dotenv.config();
 
-connectDB.connectDB();
+connectDB();
 const app = express();
 
 app.use("/", (req, res, next) => {
