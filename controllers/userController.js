@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 
 export const getAllUsers = async (req, res, next) => {
@@ -49,5 +50,27 @@ export const login = async (req, res, next) => {
   if (!email || !password) {
     res.status(400);
     throw new Error("All fields are mandatory!");
+  }
+  const user = await User.findOne({ email });
+
+  //compare password with hashedPassword
+  const passwordCompare = await bcrypt.compare(password, user.password);
+  if (user && passwordCompare) {
+    const accessToken = jwt.sign(
+      {
+        user: {
+          username: user.username,
+          email: user.email,
+          role: user.role,
+          id: user.id,
+        },
+      },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: process.env.ACCESS_TOKEN_EXPIRES_in }
+    );
+    res.status(200).json({ accessToken });
+  } else {
+    res.status(401);
+    throw new Error("Email or password invalid");
   }
 };
