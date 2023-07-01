@@ -1,4 +1,5 @@
 import { Blog } from "../models/blogModel.js";
+import { User } from "../models/userModel.js";
 
 export const getAllBlogs = async (req, res, next) => {
   let blogs;
@@ -15,6 +16,16 @@ export const getAllBlogs = async (req, res, next) => {
 
 export const addBlog = async (req, res, next) => {
   const { title, description, image, user } = req.body;
+  let existingUser;
+  try {
+    existingUser = await User.findById(user);
+  } catch (err) {
+    return console.log(err);
+  }
+  if (!existingUser) {
+    return res.status(400).json({ message: "User not found!" });
+  }
+
   const blog = new Blog({
     title,
     description,
@@ -22,7 +33,10 @@ export const addBlog = async (req, res, next) => {
     user,
   });
   try {
+    const session = await mongoose.startSession();
+    session.startTransaction();
     await blog.save();
+    existingUser.blogs.push(blog);
   } catch (err) {
     return console.log(err);
   }
