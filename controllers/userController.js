@@ -43,3 +43,11 @@ export const signup = async (req, res, next) => {
   }
   res.status(201).json({ user });
 };
+
+export const login = async (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.status(400);
+    throw new Error("All fields are mandatory!");
+  }
+};
