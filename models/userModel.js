@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "user",
     },
+    blogs: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Blog",
+      },
+    ],
   },
   {
     timestamps: true,

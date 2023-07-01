@@ -16,7 +16,7 @@ export const getAllUsers = async (req, res, next) => {
 };
 
 export const signup = async (req, res, next) => {
-  const { username, email, password, role } = req.body;
+  const { username, email, password, role, blogs } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email });
@@ -35,6 +35,7 @@ export const signup = async (req, res, next) => {
     email,
     password: hashedPassword,
     role,
+    blogs,
   });
 
   try {
@@ -63,6 +64,7 @@ export const login = async (req, res, next) => {
           email: user.email,
           role: user.role,
           id: user.id,
+          blogs: [],
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
