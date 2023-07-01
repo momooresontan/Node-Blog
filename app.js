@@ -8,6 +8,9 @@ dotenv.config();
 connectDB();
 const app = express();
 
+//Middlewares
+app.use(express.json());
+
 //Mounting the routes
 app.use("/api/v1/users", userRouter);
 

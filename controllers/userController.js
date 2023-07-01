@@ -19,7 +19,7 @@ export const signup = async (req, res, next) => {
   try {
     existingUser = await User.findOne({ email });
   } catch (err) {
-    console.log(err);
+    return console.log(err);
   }
   if (existingUser) {
     return res
@@ -36,7 +36,7 @@ export const signup = async (req, res, next) => {
   try {
     await user.save();
   } catch (err) {
-    console.log(err);
+    return console.log(err);
   }
   res.status(201).json({ user });
 };
