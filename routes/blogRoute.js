@@ -18,6 +18,6 @@ router.get("/:id", getBlogById);
 router.put("/:id", updateBlog);
 router.delete("/:id", deleteBlog);
 
-router.get("myBlogs/:id", getByUserId);
+router.get("/myBlogs/:id", getByUserId);
 
 export default router;
