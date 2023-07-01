@@ -7,8 +7,13 @@ export const getAllBlogs = async (req, res, next) => {
   } catch (err) {
     return console.log(err);
   }
-  if (!blog) {
+  if (!blogs) {
     return res.status(404).json({ message: "No blogs found!" });
   }
   res.status(200).json({ blogs });
 };
+
+const addBlog = async (req, res, next) => {
+    const { title, description, image, user } = req.body
+    try {}
+}
