@@ -1,10 +1,10 @@
 import express from "express";
-import { getAllBlogs } from "../controllers/blogController.js";
+import { getAllBlogs, addBlog } from "../controllers/blogController.js";
 
 const router = express.Router();
 
 router.get("/", getAllBlogs);
 
-router.post("/");
+router.post("/", addBlog);
 
 export default router;
